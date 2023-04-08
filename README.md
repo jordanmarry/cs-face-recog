@@ -1,1 +1,1 @@
-# cs-face-recog
+# csgo-face-recog
