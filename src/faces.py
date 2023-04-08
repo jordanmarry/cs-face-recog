@@ -22,10 +22,10 @@ while 1:
 
     for (x, y, w, h) in faces:
         roi_gray = gray[y:y+h, x:x+w]
-        roi_color = vid[y:y+h, x:x+w]
+        # roi_color = vid[y:y+h, x:x+w]
 
-        img_item = "10.png"
-        cv2.imwrite(img_item, roi_color)
+        # img_item = "10.png"
+        # cv2.imwrite(img_item, roi_color)
 
         id, conf = recog.predict(roi_gray)
 
