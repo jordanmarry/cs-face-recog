@@ -1,7 +1,9 @@
 import cv2
 import numpy as np
 import pickle
+from cs_player.player import player
 
+players = {}
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_alt2.xml")
 recog = cv2.face.LBPHFaceRecognizer_create()
 
@@ -12,7 +14,7 @@ with open('labels.pickle', 'rb') as f:
     labels = pickle.load(f)
     label = {v:k for k,v in labels.items()}
 
-cap = cv2.VideoCapture('./videos/s1mple_zywoo.mp4')
+cap = cv2.VideoCapture('./videos/twistzz.mp4')
 
 while 1:
 
@@ -24,10 +26,15 @@ while 1:
         roi_gray = gray[y:y+h, x:x+w]
         # roi_color = vid[y:y+h, x:x+w]
 
-        # img_item = "10.png"
+        # img_item = "20.png"
         # cv2.imwrite(img_item, roi_color)
 
         id, conf = recog.predict(roi_gray)
+
+        if label[id] in players:
+            players[label[id]] = players[label[id]] + 1
+        else:
+            players[label[id]] = 1
 
         cv2.rectangle(vid, (x,y), (x+w, y+h), (255, 0, 0), 2)
         cv2.putText(vid, label[id] + " " + str(round(conf, 2)), (x,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255,255,255),2)
@@ -41,3 +48,5 @@ while 1:
 
 cap.release()
 cv2.destroyAllWindows()
+
+print(players)
