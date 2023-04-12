@@ -5,5 +5,7 @@
 
 ## pip packages (create requirements.txt)
 pip install opencv-contrib-python
+
 pip install opencv-python
+
 pip install beautifulsoup4
