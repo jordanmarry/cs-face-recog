@@ -12,8 +12,8 @@ class player():
         html_page = urlopen(req)
         self.soup = BeautifulSoup(html_page, "lxml")
 
-    def get_player_info(self):
-        pass
+    def get_player_info(self):  
+        return self.soup.findAll('p')[0]
 
     def get_links(self):
         pass
