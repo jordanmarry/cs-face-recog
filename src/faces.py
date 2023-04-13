@@ -1,6 +1,6 @@
 import cv2
-import numpy as np
 import pickle
+from tkinter import *
 from cs_player.player import player
 
 players = {}
@@ -58,3 +58,12 @@ for key, value in players.items():
         player_info.append(player(key))
         
 print(player_info)
+info = player_info[0].get_player_info()
+
+root = Tk()
+root.title("Displaying a String")
+
+string_label = Label(root, text=info)
+string_label.pack()
+
+root.mainloop()
