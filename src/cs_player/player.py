@@ -16,23 +16,55 @@ class player():
         return self.soup.findAll('p')[0].get_text()
 
     def get_player_infobox(self):
-        pass
+        info = {}
+        div = self.soup.find("div", {"class": "fo-nttax-infobox"})
+        div2 = div.find_all("div")
+
+        for i in range(11,44,3):
+            text = div2[i].get_text()
+            try:
+                key, value = text.split(":")
+                value = value.replace(u'\xa0', u' ')
+                info[key] = value
+            except:
+                continue
+        return info
 
     def get_links(self):
         div = self.soup.find("div", {"class": "infobox-center infobox-icons"})
         links = div.find_all('a')
-        links_text = []
+        links_text = {}
 
         for link in links:
-            links_text.append(link['href'])
+            if 'esea' in link['href']:
+                links_text['esea'] = link['href']
+
+            if 'faceit' in link['href']:
+                links_text['faceit'] = link['href']
+
+            if 'instagram' in link['href']:
+                links_text['instagram'] = link['href']
+
+            if 'steam' in link['href']:
+                links_text['steam'] = link['href']
+
+            if 'twitter' in link['href']:
+                links_text['twitter'] = link['href']
+
+            if 'twitch' in link['href']:
+                links_text['twitch'] = link['href']
+                
+            if 'youtube' in link['href']:
+                links_text['youtube'] = link['href']
+
         return links_text
     
     def get_history(self):
         hist = self.soup.find_all("div", {"class": "infobox-center"})
         hist_div = hist[1].find_all("div")
-        team_history = []
-        for i in range(0, len(hist_div), 4):
-            team_history.append(hist_div[i].get_text())
+        team_history = {}
+        for i in range(1, len(hist_div), 4):
+            team_history[hist_div[i+1].get_text()] = hist_div[i].get_text()
 
         return team_history
     
@@ -59,6 +91,10 @@ class player():
 
         return achieve
 
+    def get_photo(self):
+        div = self.soup.find("div", {"class": "floatnone"})
+        img = div.find("img")
+        return 'https://liquipedia.net' + img['src']
 
     def get_player_name(self):
         return self.player_name
