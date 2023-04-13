@@ -60,9 +60,6 @@ class player():
         return achieve
 
 
-
-
-
     def get_player_name(self):
         return self.player_name
     

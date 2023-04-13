@@ -14,7 +14,7 @@ with open('labels.pickle', 'rb') as f:
     labels = pickle.load(f)
     label = {v:k for k,v in labels.items()}
 
-cap = cv2.VideoCapture('./videos/twistzz.mp4')
+cap = cv2.VideoCapture('./videos/s1mple_zywoo.mp4')
 
 while 1:
 
@@ -49,4 +49,12 @@ while 1:
 cap.release()
 cv2.destroyAllWindows()
 
-print(players)
+
+players = dict(sorted(players.items(), key=lambda item: item[1], reverse=True))
+max_num = players[next(iter(players))]
+player_info = []
+for key, value in players.items():
+    if value >= (max_num*.75):
+        player_info.append(player(key))
+        
+print(player_info)
