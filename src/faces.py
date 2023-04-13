@@ -1,6 +1,6 @@
 import cv2
 import pickle
-from tkinter import *
+import tkinter as tk
 from cs_player.player import player
 
 players = {}
@@ -60,10 +60,12 @@ for key, value in players.items():
 print(player_info)
 info = player_info[0].get_player_info()
 
-root = Tk()
-root.title("Displaying a String")
+root = tk.Tk()
+root.title(player_info[0].get_player_name() + "'s Information")
 
-string_label = Label(root, text=info)
-string_label.pack()
+text = tk.Text(root, height=10, width=50)
+text.pack()
+
+text.insert(tk.END, info)
 
 root.mainloop()
